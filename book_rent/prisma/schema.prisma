@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  id     Int      @id @unique @default(autoincrement())
+  code   String   @unique
+  title  String   @unique
+  author String
+  stock  Int
+  Borrow Borrow[]
+}
+
+model Member {
+  id          Int      @id @unique @default(autoincrement())
+  code        String   @unique
+  name        String
+  Borrow      Borrow[]
+  Penalty     Penalty?
+}
+
+model Borrow {
+  id         Int       @id @unique @default(autoincrement())
+  member     Member    @relation(fields: [memberId], references: [id])
+  book       Book      @relation(fields: [bookId], references: [id])
+  borrowDate DateTime  @default(now()) @db.Timestamptz(6)
+  returnDate DateTime?
+  isReturned Boolean   @default(false)
+  memberId   Int
+  bookId     Int
+}
+
+model Penalty {
+  id               Int      @id @unique @default(autoincrement())
+  penaltyStartDate DateTime @default(now()) @db.Timestamptz(6)
+  penaltyEndDate   DateTime
+  member           Member   @relation(fields: [memberId], references: [id])
+  memberId         Int      @unique
+}
