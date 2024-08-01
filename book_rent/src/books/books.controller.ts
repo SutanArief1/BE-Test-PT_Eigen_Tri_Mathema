@@ -11,10 +11,7 @@ export class BooksController {
 
   @Post()
   @ApiOperation({ summary: 'Create a new book' })
-  @ApiResponse({
-    status: 201,
-    description: 'Book created successfully',
-  })
+  @ApiResponse({ status: 201, description: 'Book created successfully' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   create(@Body() createBookDto: CreateBookDto) {
     return this.booksService.create(createBookDto);

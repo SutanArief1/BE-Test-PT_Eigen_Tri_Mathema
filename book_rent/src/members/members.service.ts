@@ -51,21 +51,6 @@ export class MembersService {
     })
   }
 
-  update(id: number, updateMemberDto: UpdateMemberDto) {
-    this.prisma.member.update({
-      where: {
-        id
-      },
-      data: updateMemberDto
-    })
-
-    return {
-      success: true,
-      message: 'Member updated successfully',
-      data: updateMemberDto
-    }
-  }
-
   remove(id: number) {
     return this.prisma.member.delete({
       where: {
