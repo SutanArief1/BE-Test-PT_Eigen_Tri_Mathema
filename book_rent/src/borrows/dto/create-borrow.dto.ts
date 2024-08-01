@@ -1,7 +1,9 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export class CreateBorrowDto {
-  borrowDate: Date;
-  returnDate: Date;
-  isReturned: boolean;
+  @ApiProperty()
   memberId: number;
+
+  @ApiProperty()
   bookId: number;
 }

@@ -7,22 +7,34 @@ import { PrismaService } from 'src/prisma.service';
 export class PenaltiesService {
   constructor(private prisma: PrismaService) {}
   create(createPenaltyDto: CreatePenaltyDto) {
-    return 'This action adds a new penalty';
+    return this.prisma.penalty.create({ data: createPenaltyDto });
   }
 
   findAll() {
     return this.prisma.penalty.findMany();
   }
 
-  findOne(id: number) {
-    return this.prisma.penalty.findUnique({ where: { id } });
+  findOne(memberId: number) {
+    return this.prisma.penalty.findMany({ where: { memberId } });
   }
 
-  update(id: number, updatePenaltyDto: UpdatePenaltyDto) {
-    return `This action updates a #${id} penalty`;
+  async update(id: number, updatePenaltyDto: UpdatePenaltyDto) {
+    const updatePenalty = await this.prisma.penalty.update({ where: { id }, data: updatePenaltyDto });
+
+    return {
+      success: true,
+      message: 'Penalty updated successfully',
+      data: updatePenalty
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} penalty`;
+  async remove(id: number) {
+    const deletePenalty = await this.prisma.penalty.delete({ where: { id } });
+    
+    return {
+      success: true,
+      message: 'Penalty deleted successfully',
+      data: deletePenalty
+    }
   }
 }

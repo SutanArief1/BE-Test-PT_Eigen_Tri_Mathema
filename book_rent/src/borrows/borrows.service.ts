@@ -1,6 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateBorrowDto } from './dto/create-borrow.dto';
-import { UpdateBorrowDto } from './dto/update-borrow.dto';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -117,7 +116,7 @@ export class BorrowsService {
 
     return {
       data: newBorrow,
-      message: 'Book borrowed successfully',
+      message: 'Thanks for borrowing the book!',
     }
   }
 
@@ -136,10 +135,6 @@ export class BorrowsService {
 
   findOne(id: number) {
     return this.prisma.borrow.findUnique({ where: { id } });
-  }
-
-  update(id: number, updateBorrowDto: UpdateBorrowDto) {
-    return `This action updates a #${id} borrow`;
   }
 
   async remove(id: number) {
