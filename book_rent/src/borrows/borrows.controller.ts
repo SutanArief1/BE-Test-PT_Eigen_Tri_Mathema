@@ -9,7 +9,7 @@ export class BorrowsController {
   constructor(private readonly borrowsService: BorrowsService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a new borrow' })
+  @ApiOperation({ summary: 'Create a new borrow / If member already have a borrow in the same book, it will be returned' })
   @ApiResponse({ status: 201, description: 'The record has been successfully created.' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   create(@Body() createBorrowDto: CreateBorrowDto) {
@@ -23,12 +23,12 @@ export class BorrowsController {
     return this.borrowsService.findAll();
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Get a single borrow' })
+  @Get('/not-returned')
+  @ApiOperation({ summary: 'Get all not returned borrows' })
   @ApiResponse({ status: 200, description: 'The record has been successfully fetched.' })
   @ApiResponse({ status: 404, description: 'Record not found' })
-  findOne(@Param('id') id: string) {
-    return this.borrowsService.findOne(+id);
+  findBorrowNotReturned() {
+    return this.borrowsService.findBorrowNotReturned();
   }
 
   @Delete(':id')

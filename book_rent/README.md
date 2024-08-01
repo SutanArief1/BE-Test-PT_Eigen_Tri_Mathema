@@ -45,6 +45,27 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+### Swagger Documentation
+
+To test the API using Swagger, follow these steps:
+
+1. Ensure the application is running
+    ```bash
+    npm run start
+    ```
+
+2. Open your browser and navigate to [http://localhost:3000/api](http://localhost:3000/api)
+
+You will see the Swagger UI where you can test all available endpoints.
+
+### Example Endpoints
+
+- `POST /members`: Create a new member
+- `GET /members`: Get a list of all members
+- `POST /books`: Add a new book
+- `GET /books`: Get a list of all books
+- `POST /borrow`: Borrow a book
+
 ## Test
 
 ```bash

@@ -133,8 +133,12 @@ export class BorrowsService {
     });
   }
 
-  findOne(id: number) {
-    return this.prisma.borrow.findUnique({ where: { id } });
+  findBorrowNotReturned() {
+    return this.prisma.borrow.findMany({
+      where: {
+        isReturned: false
+      }
+    })
   }
 
   async remove(id: number) {
